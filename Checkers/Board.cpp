@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <Windows.h>
 #include <iostream>
 
 Board::Board(unsigned int size)
@@ -13,7 +14,7 @@ Board::Board(unsigned int size)
 	{
 		for (unsigned int j = 0; j < size; j++)
 		{
-			cells[i][j] = CellType_Empty;
+			cells[i][j] = CellType_White;
 		}
 	}
 }
@@ -29,39 +30,67 @@ Board::~Board()
 
 void Board::Show()
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(hConsole, CellType_Black);
 	std::cout << "  ";
-	for (unsigned int j = 0; j < this->boardSize; j++) {
-		std::cout << j << " ";
+	SetConsoleTextAttribute(hConsole, CellType_White);
+	std::cout << "  ";
+	SetConsoleTextAttribute(hConsole, CellType_WhiteChecker);
+	std::cout << "()";
+	SetConsoleTextAttribute(hConsole, CellType_White);
+	std::cout << "  ";
+	SetConsoleTextAttribute(hConsole, CellType_BlackChecker);
+	std::cout << "[]";
+	SetConsoleTextAttribute(hConsole, CellType_White);
+	std::cout << "  " << std::endl << std::endl;
+
+	SetConsoleTextAttribute(hConsole, defaultConsoleColour);
+
+	int countCheckers = 0;
+	int countTiles = 0;
+
+	std::cout << "  ";
+	
+	char rowId = 'A';
+	for (int j = 0; j < this->tiles.size(); j++) {
+		std::cout << rowId++ << " ";
 	}
 	std::cout << std::endl;
 
-	for (unsigned int i = 0; i < this->boardSize; i++)
-	{
-		std::cout << i << " ";
-		for (unsigned int j = 0; j < this->boardSize; j++)
-		{
-			switch (cells[i][j])
-			{
-			case CellType_X:
-			{
-				std::cout << "X";
-				break;
-			}
-			case CellType_O:
-			{
-				std::cout << "O";
-				break;
-			}
-			case CellType_Empty:
-			{
-				std::cout << "-";
-				break;
-			}
-			}
-			std::cout << " ";
 
+	
+	for (int row = 0; row < this->tiles.size(); row++)
+	{
+		std::cout << row + 1 << " ";
+
+		for (int col = 0; col < this->tiles[row].size(); col++) {
+			this->PrintCell(row, col);
 		}
+
 		std::cout << std::endl;
+	}
+
+}
+
+void Board::PrintCell(int row, int col) {
+	BoardTile tile = this->tiles[row][col];
+
+	if (tile == White) {
+		this->printer.PrintWhiteChecker();
+		return;
+	}
+	else if (tile == Black) {
+		this->printer.PrintBlackChecker();
+		return;
+	}
+	else if (tile == Empty) {
+		if ((row + col) % 2 == 0) {
+			this->printer.PrintWhiteEmptyCell();
+		}
+		else {
+			this->printer.PrintBlackEmptyCell();
+		}
 	}
 }
 
@@ -84,11 +113,11 @@ bool Board::IsRowMade(unsigned int row)
 	int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
-		if (this->cells[row][i] == CellType_O)
+		if (this->cells[row][i] == CellType_BlackChecker)
 		{
 			numO++;
 		}
-		if (this->cells[row][i] == CellType_X)
+		if (this->cells[row][i] == CellType_WhiteChecker)
 		{
 			numX++;
 		}
@@ -109,11 +138,11 @@ bool Board::IsColumnMade(unsigned int col)
 	int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
-		if (this->cells[i][col] == CellType_O)
+		if (this->cells[i][col] == CellType_BlackChecker)
 		{
 			numO++;
 		}
-		if (this->cells[i][col] == CellType_X)
+		if (this->cells[i][col] == CellType_WhiteChecker)
 		{
 			numX++;
 		}
@@ -133,11 +162,11 @@ bool Board::IsDiagMade()
 	int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
-		if (this->cells[i][i] == CellType_O)
+		if (this->cells[i][i] == CellType_BlackChecker)
 		{
 			numO++;
 		}
-		if (this->cells[i][i] == CellType_X)
+		if (this->cells[i][i] == CellType_WhiteChecker)
 		{
 			numX++;
 		}
@@ -153,11 +182,11 @@ bool Board::IsDiagMade()
 
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
-		if (this->cells[i][this->boardSize - i - 1] == CellType_O)
+		if (this->cells[i][this->boardSize - i - 1] == CellType_BlackChecker)
 		{
 			numO++;
 		}
-		if (this->cells[i][this->boardSize - i - 1] == CellType_X)
+		if (this->cells[i][this->boardSize - i - 1] == CellType_WhiteChecker)
 		{
 			numX++;
 		}
@@ -178,11 +207,11 @@ bool Board::IsBoardFull()
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
 		for (unsigned int j = 0; j < this->boardSize; j++) {
-			if (this->cells[i][j] == CellType_O)
+			if (this->cells[i][j] == CellType_BlackChecker)
 			{
 				numO++;
 			}
-			if (this->cells[i][j] == CellType_X)
+			if (this->cells[i][j] == CellType_WhiteChecker)
 			{
 				numX++;
 			}

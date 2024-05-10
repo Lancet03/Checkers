@@ -1,7 +1,8 @@
 #pragma once
 
 enum CellType {
-	CellType_Empty,
-	CellType_X,
-	CellType_O
+	CellType_White = 238,
+	CellType_Black = 34,
+	CellType_BlackChecker = 32,
+	CellType_WhiteChecker = 47
 };
