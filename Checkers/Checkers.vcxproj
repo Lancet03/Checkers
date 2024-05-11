@@ -128,18 +128,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Checker.cpp" />
     <ClCompile Include="Checkers.cpp" />
+    <ClCompile Include="EmptyCell.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Printer.cpp" />
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="CellType.h" />
+    <ClInclude Include="Checker.h" />
+    <ClInclude Include="EmptyCell.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="BoardTile.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

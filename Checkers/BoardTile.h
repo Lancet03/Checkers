@@ -1,7 +1,9 @@
 #pragma once
 
 enum BoardTile {
-	Empty,
-	Black,
-	White
+	White = 1,
+	Black = 2,
+	BlackKing = 3,
+	WhiteKing = 4,
+	Empty = 0,
 };

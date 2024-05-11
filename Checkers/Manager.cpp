@@ -21,8 +21,8 @@ bool Manager::Init() {
 		std::cout << "Неверное число клеток поля" << std::endl;
 		return false;
 	}*/
-	unsigned int boardSize = 3;
-	this->board = new Board(boardSize);
+	//unsigned int boardSize = 3;
+	this->board = new Board();
 	std::string playerName = "a";
 	this->p1 = new Player();
 	this->p2 = new Player();

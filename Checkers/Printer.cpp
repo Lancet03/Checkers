@@ -6,29 +6,31 @@ Printer::Printer() {
 }
 
 void Printer::PrintWhiteChecker() {
-	SetConsoleTextAttribute(hConsole, CellType_WhiteChecker);
-	std::cout << "()";
-	SetConsoleTextAttribute(hConsole, defaultConsoleColor);
-}
-
-void Printer::PrintBlackChecker() {
-	SetConsoleTextAttribute(hConsole, CellType_BlackChecker);
-	std::cout << "()";
-	SetConsoleTextAttribute(hConsole, defaultConsoleColor);
+	this->PrintCell("()", CellType_WhiteChecker);
 }
 
 void Printer::PrintWhiteKingChecker() {
+	this->PrintCell("[]", CellType_WhiteChecker);
+}
 
+void Printer::PrintBlackChecker() {
+	this->PrintCell("()", CellType_BlackChecker);
+}
+
+void Printer::PrintBlackKingChecker() {
+	this->PrintCell("()", CellType_BlackChecker);
 }
 
 void Printer::PrintWhiteEmptyCell() {
-	SetConsoleTextAttribute(hConsole, CellType_White);
-	std::cout << "  ";
-	SetConsoleTextAttribute(hConsole, defaultConsoleColor);
+	this->PrintCell("  ", CellType_White);
 }
 
 void Printer::PrintBlackEmptyCell() {
-	SetConsoleTextAttribute(hConsole, CellType_Black);
-	std::cout << "  ";
+	this->PrintCell("  ", CellType_Black);
+}
+
+void Printer::PrintCell(const char* cellText, CellType cellType) {
+	SetConsoleTextAttribute(hConsole, cellType);
+	std::cout << cellText;
 	SetConsoleTextAttribute(hConsole, defaultConsoleColor);
 }

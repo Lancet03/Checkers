@@ -4,6 +4,7 @@
 #include "CellType.h"
 #include "BoardTile.h"
 #include "Printer.h"
+#include "Tile.h"
 
 #include <vector>
 
@@ -26,7 +27,7 @@ private:
 		{Empty, Black, Empty, Black, Empty, Black, Empty, Black},
 		{Black, Empty, Black, Empty, Black, Empty, Black, Empty}
 	};
-	CellType** cells;
+	std::vector <std::vector<Tile*>> cells;
 	Printer printer;
 	bool isVictory;
 	bool IsRowMade(unsigned int row);
@@ -36,7 +37,7 @@ private:
 
 	int defaultConsoleColour = 15;
 public:
-	Board(unsigned int size);
+	Board();
 	virtual ~Board();
 	void Show();
 	void SetSell(unsigned int xpos, unsigned int ypos, CellType ct);

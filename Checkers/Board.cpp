@@ -1,10 +1,13 @@
 #include "Board.h"
 #include <Windows.h>
 #include <iostream>
+#include <typeinfo>
+#include "Checker.h"
+#include "EmptyCell.h"
 
-Board::Board(unsigned int size)
+Board::Board()
 {
-	this->boardSize = size;
+	/*this->boardSize = size;
 	cells = new CellType * [size];
 	for (unsigned int i = 0; i < size; i++)
 	{
@@ -16,16 +19,38 @@ Board::Board(unsigned int size)
 		{
 			cells[i][j] = CellType_White;
 		}
+	}*/
+
+	int size = this->tiles.size();
+
+	for (int row = 0; row < this->tiles.size(); row++) {
+		std::vector<Tile*> tilesInLine;
+		
+		for (int col = 0; col < this->tiles.size(); col++) {
+			BoardTile tile = this->tiles[row][col];
+
+			if (tile == Empty) {
+				EmptyCell* eCell = new EmptyCell(row, col);
+				tilesInLine.push_back(eCell);
+			}
+			else {
+				Checker* checker = new Checker(row, col, tile);
+				tilesInLine.push_back(checker);
+			}
+		}
+
+		this->cells.push_back(tilesInLine);
 	}
 }
 
 Board::~Board()
 {
-	for (unsigned int i = 0; i < this->boardSize; i++)
+	for (unsigned int i = 0; i < this->cells.size(); i++)
 	{
-		delete[]cells[i];
+		for (int j = 0; j < this->cells[i].size(); j++) {
+			delete cells[i][j];
+		}
 	}
-	delete[]cells;
 }
 
 void Board::Show()
@@ -74,18 +99,22 @@ void Board::Show()
 }
 
 void Board::PrintCell(int row, int col) {
-	BoardTile tile = this->tiles[row][col];
+	Tile* tile = this->cells[row][col];
 
-	if (tile == White) {
-		this->printer.PrintWhiteChecker();
-		return;
+	if (typeid(*tile) == typeid(Checker)) {
+		Checker* checker = (Checker*)tile;
+		if (checker->player == White) {
+			this->printer.PrintWhiteChecker();
+			return;
+		}
+		else if (checker->player == Black) {
+			this->printer.PrintBlackChecker();
+			return;
+		}
+		
 	}
-	else if (tile == Black) {
-		this->printer.PrintBlackChecker();
-		return;
-	}
-	else if (tile == Empty) {
-		if ((row + col) % 2 == 0) {
+	else if (typeid(*tile) == typeid(EmptyCell)) {
+		if ((tile->position.first + tile->position.second) % 2 == 0) {
 			this->printer.PrintWhiteEmptyCell();
 		}
 		else {
@@ -96,7 +125,7 @@ void Board::PrintCell(int row, int col) {
 
 void Board::SetSell(unsigned int xpos, unsigned int ypos, CellType ct)
 {
-	cells[ypos][xpos] = ct;
+	//cells[ypos][xpos] = ct;
 }
 
 bool Board::CheckLegal(unsigned int xpos, unsigned int ypos)
@@ -110,7 +139,7 @@ bool Board::CheckLegal(unsigned int xpos, unsigned int ypos)
 
 bool Board::IsRowMade(unsigned int row)
 {
-	int numX = 0, numO = 0;
+	/*int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
 		if (this->cells[row][i] == CellType_BlackChecker)
@@ -127,7 +156,7 @@ bool Board::IsRowMade(unsigned int row)
 	{
 		this->isVictory = true;
 		return true;
-	}
+	}*/
 
 
 	return false;
@@ -135,7 +164,7 @@ bool Board::IsRowMade(unsigned int row)
 
 bool Board::IsColumnMade(unsigned int col)
 {
-	int numX = 0, numO = 0;
+	/*int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
 		if (this->cells[i][col] == CellType_BlackChecker)
@@ -152,14 +181,14 @@ bool Board::IsColumnMade(unsigned int col)
 	if ((numX == this->boardSize) || (numO == this->boardSize)) {
 		this->isVictory = true;
 		return true;
-	}
+	}*/
 
 	return false;
 }
 
 bool Board::IsDiagMade()
 {
-	int numX = 0, numO = 0;
+	/*int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
 		if (this->cells[i][i] == CellType_BlackChecker)
@@ -196,14 +225,14 @@ bool Board::IsDiagMade()
 	if ((numX == this->boardSize) || (numO == this->boardSize)) {
 		this->isVictory = true;
 		return true;
-	}
+	}*/
 
 	return false;
 }
 
 bool Board::IsBoardFull()
 {
-	int numX = 0, numO = 0;
+	/*int numX = 0, numO = 0;
 	for (unsigned int i = 0; i < this->boardSize; i++)
 	{
 		for (unsigned int j = 0; j < this->boardSize; j++) {
@@ -220,7 +249,7 @@ bool Board::IsBoardFull()
 
 	if ((numX + numO) == (this->boardSize * this->boardSize)) {
 		return true;
-	}
+	}*/
 
 	return false;
 }
