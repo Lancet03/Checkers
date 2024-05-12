@@ -5,6 +5,8 @@
 #include "BoardTile.h"
 #include "Printer.h"
 #include "Tile.h"
+#include "EmptyCell.h"
+#include "Checker.h"
 
 #include <vector>
 
@@ -28,6 +30,8 @@ private:
 		{Black, Empty, Black, Empty, Black, Empty, Black, Empty}
 	};
 	std::vector <std::vector<Tile*>> cells;
+	std::vector <EmptyCell*> emptyCells;
+	std::vector <Checker*> checkers;
 	Printer printer;
 	bool isVictory;
 	bool IsRowMade(unsigned int row);

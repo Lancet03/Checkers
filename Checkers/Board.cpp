@@ -30,12 +30,14 @@ Board::Board()
 			BoardTile tile = this->tiles[row][col];
 
 			if (tile == Empty) {
-				EmptyCell* eCell = new EmptyCell(row, col);
-				tilesInLine.push_back(eCell);
+				EmptyCell* emptyCell = new EmptyCell(row, col);
+				tilesInLine.push_back(emptyCell);
+				this->emptyCells.push_back(emptyCell);
 			}
 			else {
 				Checker* checker = new Checker(row, col, tile);
 				tilesInLine.push_back(checker);
+				this->checkers.push_back(checker);
 			}
 		}
 
@@ -100,6 +102,7 @@ void Board::Show()
 
 void Board::PrintCell(int row, int col) {
 	Tile* tile = this->cells[row][col];
+	
 
 	if (typeid(*tile) == typeid(Checker)) {
 		Checker* checker = (Checker*)tile;
