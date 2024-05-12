@@ -7,20 +7,6 @@
 
 Board::Board()
 {
-	/*this->boardSize = size;
-	cells = new CellType * [size];
-	for (unsigned int i = 0; i < size; i++)
-	{
-		cells[i] = new CellType[size];
-	}
-	for (unsigned int i = 0; i < size; i++)
-	{
-		for (unsigned int j = 0; j < size; j++)
-		{
-			cells[i][j] = CellType_White;
-		}
-	}*/
-
 	int size = this->tiles.size();
 
 	for (int row = 0; row < this->tiles.size(); row++) {
@@ -30,12 +16,12 @@ Board::Board()
 			BoardTile tile = this->tiles[row][col];
 
 			if (tile == Empty) {
-				EmptyCell* emptyCell = new EmptyCell(row, col);
+				EmptyCell* emptyCell = new EmptyCell(row, col, this);
 				tilesInLine.push_back(emptyCell);
 				this->emptyCells.push_back(emptyCell);
 			}
 			else {
-				Checker* checker = new Checker(row, col, tile);
+				Checker* checker = new Checker(row, col, tile, this);
 				tilesInLine.push_back(checker);
 				this->checkers.push_back(checker);
 			}
@@ -128,7 +114,7 @@ void Board::PrintCell(int row, int col) {
 
 void Board::SetSell(unsigned int xpos, unsigned int ypos, CellType ct)
 {
-	//cells[ypos][xpos] = ct;
+	// cells[ypos][xpos] = ct;
 }
 
 bool Board::CheckLegal(unsigned int xpos, unsigned int ypos)
@@ -140,133 +126,17 @@ bool Board::CheckLegal(unsigned int xpos, unsigned int ypos)
 	return true;
 }
 
-bool Board::IsRowMade(unsigned int row)
-{
-	/*int numX = 0, numO = 0;
-	for (unsigned int i = 0; i < this->boardSize; i++)
-	{
-		if (this->cells[row][i] == CellType_BlackChecker)
-		{
-			numO++;
-		}
-		if (this->cells[row][i] == CellType_WhiteChecker)
-		{
-			numX++;
-		}
-	}
-
-	if ((numX == this->boardSize) || (numO == this->boardSize))
-	{
-		this->isVictory = true;
-		return true;
-	}*/
-
-
-	return false;
-}
-
-bool Board::IsColumnMade(unsigned int col)
-{
-	/*int numX = 0, numO = 0;
-	for (unsigned int i = 0; i < this->boardSize; i++)
-	{
-		if (this->cells[i][col] == CellType_BlackChecker)
-		{
-			numO++;
-		}
-		if (this->cells[i][col] == CellType_WhiteChecker)
-		{
-			numX++;
-		}
-
-	}
-
-	if ((numX == this->boardSize) || (numO == this->boardSize)) {
-		this->isVictory = true;
-		return true;
-	}*/
-
-	return false;
-}
-
-bool Board::IsDiagMade()
-{
-	/*int numX = 0, numO = 0;
-	for (unsigned int i = 0; i < this->boardSize; i++)
-	{
-		if (this->cells[i][i] == CellType_BlackChecker)
-		{
-			numO++;
-		}
-		if (this->cells[i][i] == CellType_WhiteChecker)
-		{
-			numX++;
-		}
-
-	}
-
-	if ((numX == this->boardSize) || (numO == this->boardSize)) {
-		this->isVictory = true;
-		return true;
-	}
-
-	numX = numO = 0;
-
-	for (unsigned int i = 0; i < this->boardSize; i++)
-	{
-		if (this->cells[i][this->boardSize - i - 1] == CellType_BlackChecker)
-		{
-			numO++;
-		}
-		if (this->cells[i][this->boardSize - i - 1] == CellType_WhiteChecker)
-		{
-			numX++;
-		}
-
-	}
-
-	if ((numX == this->boardSize) || (numO == this->boardSize)) {
-		this->isVictory = true;
-		return true;
-	}*/
-
-	return false;
-}
-
-bool Board::IsBoardFull()
-{
-	/*int numX = 0, numO = 0;
-	for (unsigned int i = 0; i < this->boardSize; i++)
-	{
-		for (unsigned int j = 0; j < this->boardSize; j++) {
-			if (this->cells[i][j] == CellType_BlackChecker)
-			{
-				numO++;
-			}
-			if (this->cells[i][j] == CellType_WhiteChecker)
-			{
-				numX++;
-			}
-		}
-	}
-
-	if ((numX + numO) == (this->boardSize * this->boardSize)) {
-		return true;
-	}*/
-
-	return false;
-}
 
 bool Board::CheckEndCondition()
 {
-	for (unsigned int i = 0; i < this->boardSize; i++) {
+	/*for (unsigned int i = 0; i < this->boardSize; i++) {
 		if (this->IsRowMade(i) || this->IsColumnMade(i)) {
 			return true;
 		}
 	}
 	if (this->IsDiagMade() || this->IsBoardFull()) {
 		return true;
-	}
+	}*/
 
 	return false;
 }

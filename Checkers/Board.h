@@ -1,19 +1,14 @@
 #pragma once
 
-#pragma once
 #include "CellType.h"
 #include "BoardTile.h"
 #include "Printer.h"
-#include "Tile.h"
 #include "EmptyCell.h"
 #include "Checker.h"
 
 #include <vector>
 
-struct Point {
-	int x;
-	int y;
-};
+class Tile;
 
 class Board
 {
@@ -34,10 +29,6 @@ private:
 	std::vector <Checker*> checkers;
 	Printer printer;
 	bool isVictory;
-	bool IsRowMade(unsigned int row);
-	bool IsColumnMade(unsigned int col);
-	bool IsDiagMade();
-	bool IsBoardFull();
 
 	int defaultConsoleColour = 15;
 public:

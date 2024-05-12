@@ -6,7 +6,7 @@ class EmptyCell :
     public Tile
 {
 public:
-    EmptyCell(int row, int col);
+    EmptyCell(int row, int col, Board* board);
     int inRange(Checker checker);
 };
 

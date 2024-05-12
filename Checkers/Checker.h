@@ -9,7 +9,7 @@ class Checker :
     bool king = false;
 public:
     int player;
-    Checker(int row, int col, int player);
+    Checker(int row, int col, int player, Board* board);
     void MakeKing();
     bool Move(int x, int y);
     bool CanJumpAny();
