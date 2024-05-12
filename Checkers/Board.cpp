@@ -43,36 +43,10 @@ Board::~Board()
 
 void Board::Show()
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	this->printer.PrintTilesInfo();
 
-	SetConsoleTextAttribute(hConsole, CellType_Black);
-	std::cout << "  ";
-	SetConsoleTextAttribute(hConsole, CellType_White);
-	std::cout << "  ";
-	SetConsoleTextAttribute(hConsole, CellType_WhiteChecker);
-	std::cout << "()";
-	SetConsoleTextAttribute(hConsole, CellType_White);
-	std::cout << "  ";
-	SetConsoleTextAttribute(hConsole, CellType_BlackChecker);
-	std::cout << "[]";
-	SetConsoleTextAttribute(hConsole, CellType_White);
-	std::cout << "  " << std::endl << std::endl;
-
-	SetConsoleTextAttribute(hConsole, defaultConsoleColour);
-
-	int countCheckers = 0;
-	int countTiles = 0;
-
-	std::cout << "  ";
-	
-	char rowId = 'A';
-	for (int j = 0; j < this->tiles.size(); j++) {
-		std::cout << rowId++ << " ";
-	}
 	std::cout << std::endl;
 
-
-	
 	for (int row = 0; row < this->tiles.size(); row++)
 	{
 		std::cout << row + 1 << " ";
@@ -88,7 +62,6 @@ void Board::Show()
 
 void Board::PrintCell(int row, int col) {
 	Tile* tile = this->cells[row][col];
-	
 
 	if (typeid(*tile) == typeid(Checker)) {
 		Checker* checker = (Checker*)tile;
@@ -119,10 +92,10 @@ void Board::SetSell(unsigned int xpos, unsigned int ypos, CellType ct)
 
 bool Board::CheckLegal(unsigned int xpos, unsigned int ypos)
 {
-	if ((xpos < 0) || (ypos < 0) || (xpos > this->boardSize - 1) || (ypos > this->boardSize - 1))
+	/*if ((xpos < 0) || (ypos < 0) || (xpos > this->boardSize - 1) || (ypos > this->boardSize - 1))
 	{
 		return false;
-	}
+	}*/
 	return true;
 }
 

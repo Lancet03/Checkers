@@ -10,6 +10,9 @@ private:
 	void PrintCell(const char* cellText, CellType cellType);
 public:
 	Printer();
+	
+	void PrintTilesInfo();
+
 	void PrintWhiteChecker();
 	void PrintBlackChecker();
 	void PrintWhiteEmptyCell();

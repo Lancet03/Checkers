@@ -29,6 +29,15 @@ void Printer::PrintBlackEmptyCell() {
 	this->PrintCell("  ", CellType_Black);
 }
 
+void Printer::PrintTilesInfo() {
+	this->PrintBlackEmptyCell();
+	this->PrintWhiteEmptyCell();
+	this->PrintWhiteChecker();
+	this->PrintWhiteEmptyCell();
+	this->PrintBlackChecker();
+	this->PrintWhiteEmptyCell();
+}
+
 void Printer::PrintCell(const char* cellText, CellType cellType) {
 	SetConsoleTextAttribute(hConsole, cellType);
 	std::cout << cellText;

@@ -10,10 +10,14 @@
 
 class Tile;
 
+struct Score {
+	int player1 = 0;
+	int player2 = 0;
+};
+
 class Board
 {
 private:
-	int boardSize;
 	std::vector <std::vector<BoardTile>> tiles{
 		{Empty, White, Empty, White, Empty, White, Empty, White},
 		{White, Empty, White, Empty, White, Empty, White, Empty},
@@ -27,8 +31,14 @@ private:
 	std::vector <std::vector<Tile*>> cells;
 	std::vector <EmptyCell*> emptyCells;
 	std::vector <Checker*> checkers;
+
 	Printer printer;
+
 	bool isVictory;
+	Score score;
+	int playerTurn = 1;
+	bool jumpExist = false;
+	bool continuousJump = false;
 
 	int defaultConsoleColour = 15;
 public:
