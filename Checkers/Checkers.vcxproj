@@ -130,6 +130,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Checker.cpp" />
     <ClCompile Include="Checkers.cpp" />
+    <ClCompile Include="distance.cpp" />
     <ClCompile Include="EmptyCell.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -140,8 +141,10 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="CellType.h" />
     <ClInclude Include="Checker.h" />
+    <ClInclude Include="distance.h" />
     <ClInclude Include="EmptyCell.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="MoveTypes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="BoardTile.h" />

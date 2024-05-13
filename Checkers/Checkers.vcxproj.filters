@@ -39,6 +39,9 @@
     <ClCompile Include="EmptyCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="distance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CellType.h">
@@ -66,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EmptyCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="distance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,9 +28,7 @@ private:
 		{Empty, Black, Empty, Black, Empty, Black, Empty, Black},
 		{Black, Empty, Black, Empty, Black, Empty, Black, Empty}
 	};
-	std::vector <std::vector<Tile*>> cells;
-	std::vector <EmptyCell*> emptyCells;
-	std::vector <Checker*> checkers;
+
 
 	Printer printer;
 
@@ -44,6 +42,11 @@ private:
 public:
 	Board();
 	virtual ~Board();
+
+	std::vector <std::vector<Tile*>> cells;
+	std::vector <EmptyCell*> emptyCells;
+	std::vector <Checker*> checkers;
+	
 	void Show();
 	void SetSell(unsigned int xpos, unsigned int ypos, CellType ct);
 	bool CheckLegal(unsigned int xpos, unsigned int ypos);
@@ -51,5 +54,14 @@ public:
 	bool IsVictory();
 
 	void PrintCell(int row, int col);
+
+	bool IsValidPlaceToMove(int row, int col);
+	void ChangePlayerTurn();
+	int CheckIfSomeoneWon();
+	void Clear();
+	void CheckIfJumpExists();
+	bool CheckIfPositionOnBoard(int x, int y);
+
+	void RemoveChecker(Checker* checker);
 };
 

@@ -117,3 +117,69 @@ bool Board::CheckEndCondition()
 bool Board::IsVictory() {
 	return this->isVictory;
 }
+
+int Board::CheckIfSomeoneWon() {
+	if (this->score.player1 == 12) {
+		return 1;
+	}
+	else if (this->score.player2) {
+		return 2;
+	}
+
+	return 0;
+}
+
+bool Board::IsValidPlaceToMove(int row, int col) {
+	if (!this->CheckIfPositionOnBoard(col, row)) return false;
+
+	Tile* tile = this->cells[row][col];
+	if (typeid(*tile) == typeid(EmptyCell)) return true;
+
+	return false;
+}
+
+bool Board::CheckIfPositionOnBoard(int x, int y) {
+	int boardYSize = this->cells.size();
+	int boardXSize = this->cells[0].size();
+	if (y > (boardYSize - 1) || x > (boardYSize - 1) || y < 0 || x < 0) {
+		return false;
+	}
+	return true;
+}
+
+void Board::RemoveChecker(Checker* checker) {
+	if (checker->player == 1) {
+		this->score.player2 += 1;
+	}
+	if (checker->player == 2) {
+		this->score.player1 += 1;
+	}
+
+	int checkerCol = checker->position.first;
+	int checkerRow = checker->position.second;
+	EmptyCell* emptyCell = new EmptyCell(checkerRow, checkerCol, this);
+	this->cells[checkerRow][checkerCol] = emptyCell;
+	
+	for (int i = 0; i < this->checkers.size(); i++) {
+		if (checker == this->checkers[i]) {
+			if (i == 0) {
+				this->checkers.erase(this->checkers.begin());
+			} else {
+				this->checkers.erase(std::next(this->checkers.begin(), i));
+			}
+			break;
+		}
+	}
+	this->emptyCells.push_back(emptyCell);
+
+	int playerWon = this->CheckIfSomeoneWon();
+	if (playerWon) {
+		std::cout << "Player " << playerWon << " won!!!" << std::endl;
+	}
+}
+
+
+void Board::CheckIfJumpExists() {
+	this->jumpExist = false;
+	this->continuousJump = false;
+}

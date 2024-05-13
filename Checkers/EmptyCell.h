@@ -7,6 +7,6 @@ class EmptyCell :
 {
 public:
     EmptyCell(int row, int col, Board* board);
-    int inRange(Checker checker);
+    int InRange(Checker* checker);
 };
 

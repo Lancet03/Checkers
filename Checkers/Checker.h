@@ -6,15 +6,15 @@ class Checker :
     public Tile
 {
     bool allowedToMove = true;
-    bool king = false;
 public:
+    bool king = false;
     int player;
     Checker(int row, int col, int player, Board* board);
     void MakeKing();
     bool Move(int x, int y);
     bool CanJumpAny();
-    bool CanOpponentJump(int x, int y);
+    Checker* CanOpponentJump(int x, int y);
     bool OpponentJump(int x, int y);
-    bool Remove();
+    void Remove();
 };
 

@@ -1,6 +1,38 @@
 #include "Tile.h"
+#include "Checker.h"
+#include "Board.h"
+#include "distance.h"
+#include <vector>
+#include <cmath>
 
-//Tile::Tile(int x, int y) {
-//	this->position.first = x;
-//	this->position.second = y;
-//}
+MoveTypes Tile::InRange(Checker* checker) {
+	std::vector<Checker*> checkers = this->board->checkers;
+
+	for (int i = 0; i < checkers.size(); i++) {
+		Checker* checker = checkers[i];
+		if (checker->position.first == this->position.first && checker->position.second == this->position.second) {
+			return MoveTypes::Wrong;
+		}
+		if (!checker->king && checker->player == 1 && this->position.second < checker->position.second) {
+			return MoveTypes::Wrong;
+		}
+		if (!checker->king && checker->player == 2 && this->position.second > checker->position.second) {
+			return MoveTypes::Wrong;
+		}
+
+
+		double distanceToChecker = distance(this->position.first, this->position.second, checker->position.first, checker->position.second);
+		if (distanceToChecker == std::sqrt(2)) {
+			return MoveTypes::RegularMove;
+		} else if (distanceToChecker == 2 * std::sqrt(2)) {
+			return MoveTypes::Jump;
+		}
+	}
+}
+
+void Tile::SetPostion(int x, int y) {
+	this->position.first = x;
+	this->position.second = y;
+}
+
+
