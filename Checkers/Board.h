@@ -7,6 +7,7 @@
 #include "Checker.h"
 
 #include <vector>
+#include <string>
 
 class Tile;
 
@@ -48,8 +49,8 @@ public:
 	std::vector <Checker*> checkers;
 	
 	void Show();
-	void SetSell(unsigned int xpos, unsigned int ypos, CellType ct);
-	bool CheckLegal(unsigned int xpos, unsigned int ypos);
+	void SetSell(unsigned int xpos, unsigned int ypos, BoardTile ct);
+	bool CheckLegal(int xpos, int ypos);
 	bool CheckEndCondition();
 	bool IsVictory();
 
@@ -62,6 +63,11 @@ public:
 	void CheckIfJumpExists();
 	bool CheckIfPositionOnBoard(int x, int y);
 
+	bool CheckIfPositionIsCorrect(std::string position);
+	bool CheckIfCheckerSelected(int x, int y);
+	bool CheckIfEmptyCellSelected(int x, int y);
+
+	Checker* SelectChecker(int x, int y);
 	void RemoveChecker(Checker* checker);
 };
 

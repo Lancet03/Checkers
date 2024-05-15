@@ -1,7 +1,9 @@
-#include "Board.h"
 #include <Windows.h>
 #include <iostream>
 #include <typeinfo>
+#include <string>
+
+#include "Board.h"
 #include "Checker.h"
 #include "EmptyCell.h"
 
@@ -46,6 +48,13 @@ void Board::Show()
 	this->printer.PrintTilesInfo();
 
 	std::cout << std::endl;
+	
+	std::cout << "  ";
+	char rowId = 'A';
+	for (int j = 0; j < this->tiles.size(); j++) {
+		std::cout << rowId++ << " ";
+	}
+	std::cout << std::endl;
 
 	for (int row = 0; row < this->tiles.size(); row++)
 	{
@@ -85,18 +94,20 @@ void Board::PrintCell(int row, int col) {
 	}
 }
 
-void Board::SetSell(unsigned int xpos, unsigned int ypos, CellType ct)
+void Board::SetSell(unsigned int xpos, unsigned int ypos, BoardTile ct)
 {
 	// cells[ypos][xpos] = ct;
 }
 
-bool Board::CheckLegal(unsigned int xpos, unsigned int ypos)
+
+
+bool Board::CheckLegal(int xpos, int ypos)
 {
 	/*if ((xpos < 0) || (ypos < 0) || (xpos > this->boardSize - 1) || (ypos > this->boardSize - 1))
 	{
 		return false;
 	}*/
-	return true;
+	return this->CheckIfPositionOnBoard(xpos, ypos);
 }
 
 
@@ -141,6 +152,7 @@ bool Board::IsValidPlaceToMove(int row, int col) {
 bool Board::CheckIfPositionOnBoard(int x, int y) {
 	int boardYSize = this->cells.size();
 	int boardXSize = this->cells[0].size();
+
 	if (y > (boardYSize - 1) || x > (boardYSize - 1) || y < 0 || x < 0) {
 		return false;
 	}
@@ -182,4 +194,48 @@ void Board::RemoveChecker(Checker* checker) {
 void Board::CheckIfJumpExists() {
 	this->jumpExist = false;
 	this->continuousJump = false;
+}
+
+bool Board::CheckIfCheckerSelected(int x, int y) {
+	if (this->CheckIfPositionOnBoard(x, y)) {
+		Tile* possibleChecker = this->cells[y][x];
+
+		if (typeid(*possibleChecker) == typeid(Checker)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Board::CheckIfEmptyCellSelected(int x, int y) {
+	if (this->CheckIfPositionOnBoard(x, y)) {
+		Tile* possibleEmptyCell = this->cells[y][x];
+
+		if (typeid(*possibleEmptyCell) == typeid(EmptyCell)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Board::CheckIfPositionIsCorrect(std::string position) {
+	if (position.length() != 2) {
+		std::cout << "Введена слишком длинная строка" << std::endl;
+		return false;
+	}
+
+	int firstCoordinate = position[0] - 'A';
+	int secondCoordinate = position[1] - '1';
+
+
+	std::cout << firstCoordinate << " " << secondCoordinate << std::endl;
+
+	if (!this->CheckIfPositionOnBoard(firstCoordinate, secondCoordinate)) {
+		std::cout << "Координата была введена неверно!" << std::endl;
+		return false;
+	}
+
+	return true;
 }

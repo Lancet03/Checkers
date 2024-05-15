@@ -7,6 +7,7 @@ class Checker :
 {
     bool allowedToMove = true;
 public:
+    bool selected = false;
     bool king = false;
     int player;
     Checker(int row, int col, int player, Board* board);

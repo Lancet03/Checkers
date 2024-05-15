@@ -9,7 +9,7 @@ Player::~Player() {
 
 }
 
-void Player::SetupPlayer(std::string name, CellType cellType) {
+void Player::SetupPlayer(std::string name, BoardTile cellType) {
 	this->name = name;
 	this->cellType = cellType;
 }
@@ -21,18 +21,26 @@ void Player::SetBoard(Board* board)
 
 bool Player::MakeMove()
 {
-	unsigned int row, col;
+	unsigned int row = 0, col = 0;
+	std::string position;
+	//char* position;
 	std::cout << "Игрок " << this->name << ", ваш ход..." << std::endl;
-	std::cout << "Введите строку: ";
-	std::cin >> row;
-	std::cout << "Введите столбец: ";
-	std::cin >> col;
+	std::cout << "Выберите шашку: (координаты в виде A1)";
+	std::cin >> position;
 
-	if (this->board->CheckLegal(col, row))
-	{
+	if (this->board->CheckIfPositionIsCorrect(position)) {
 		this->board->SetSell(col, row, this->cellType);
 		return true;
 	}
+
+
+	
+	//if (this->board->CheckIfCheckerSelected(col, row))
+	//{
+
+	//	this->board->SetSell(col, row, this->cellType);
+	//	return true;
+	//}
 
 	return false;
 }

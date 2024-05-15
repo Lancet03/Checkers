@@ -23,16 +23,17 @@ bool Manager::Init() {
 	}*/
 	//unsigned int boardSize = 3;
 	this->board = new Board();
-	std::string playerName = "a";
+	std::string playerName = "PlWhite";
 	this->p1 = new Player();
 	this->p2 = new Player();
 	//std::cin.ignore();
 	std::cout << "Введите имя игрока, играющего Х: ";
 	//getline(std::cin, playerName);
-	this->p1->SetupPlayer(playerName, CellType_WhiteChecker);
+	this->p1->SetupPlayer(playerName, BoardTile::White);
 	std::cout << "Введите имя игрока, играющего за O: ";
 	//getline(std::cin, playerName);
-	this->p2->SetupPlayer(playerName, CellType_BlackChecker);
+	playerName = "PlBlack";
+	this->p2->SetupPlayer(playerName, BoardTile::Black);
 	this->p1->SetBoard(this->board);
 	this->p2->SetBoard(this->board);
 	this->currentPlayer = this->p1;

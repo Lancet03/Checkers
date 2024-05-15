@@ -1,16 +1,17 @@
 #pragma once
 #include "Board.h"
 #include <string>
+#include "BoardTile.h"
 
 class Player
 {
 	Board* board;
-	CellType cellType;
+	BoardTile cellType;
 	std::string name;
 public:
 	Player();
 	virtual ~Player();
-	void SetupPlayer(std::string name, CellType cellType);
+	void SetupPlayer(std::string name, BoardTile cellType);
 	void SetBoard(Board* board);
 	bool MakeMove();
 	std::string GetName();
