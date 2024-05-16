@@ -12,16 +12,6 @@ Manager::~Manager() {
 }
 
 bool Manager::Init() {
-	/*unsigned int boardSize;
-	std::string playerName;
-	std::cout << "Введите число клеток поля (3-6): ";
-	std::cin >> boardSize;
-	if ((boardSize < 3) || (boardSize > 6))
-	{
-		std::cout << "Неверное число клеток поля" << std::endl;
-		return false;
-	}*/
-	//unsigned int boardSize = 3;
 	this->board = new Board();
 	std::string playerName = "PlWhite";
 	this->p1 = new Player();

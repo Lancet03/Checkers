@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 
 class Tile;
 
@@ -30,17 +31,15 @@ private:
 		{Black, Empty, Black, Empty, Black, Empty, Black, Empty}
 	};
 
-
 	Printer printer;
 
 	bool isVictory;
 	Score score;
 	int playerTurn = 1;
+public:
 	bool jumpExist = false;
 	bool continuousJump = false;
 
-	int defaultConsoleColour = 15;
-public:
 	Board();
 	virtual ~Board();
 
@@ -64,10 +63,13 @@ public:
 	bool CheckIfPositionOnBoard(int x, int y);
 
 	bool CheckIfPositionIsCorrect(std::string position);
-	bool CheckIfCheckerSelected(int x, int y);
-	bool CheckIfEmptyCellSelected(int x, int y);
+	bool CheckIfCheckerOnPosition(int x, int y);
+	bool CheckIfEmptyCellOnPosition(int x, int y);
 
-	Checker* SelectChecker(int x, int y);
+	Checker* GetChecker(int x, int y);
+	EmptyCell* GetEmptyCell(int x, int y);
 	void RemoveChecker(Checker* checker);
+
+	std::pair<int, int> ParsePosition(std::string position);
 };
 

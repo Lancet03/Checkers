@@ -99,6 +99,25 @@ void Board::SetSell(unsigned int xpos, unsigned int ypos, BoardTile ct)
 	// cells[ypos][xpos] = ct;
 }
 
+Checker* Board::GetChecker(int x, int y) {
+	if (this->CheckIfPositionOnBoard(x, y)) {
+		Checker* checker = (Checker*)this->cells[y][x];
+
+		return checker;
+	}
+
+	return nullptr;
+}
+
+EmptyCell* Board::GetEmptyCell(int x, int y) {
+	if (this->CheckIfPositionOnBoard(x, y)) {
+		EmptyCell* emptyCell = (EmptyCell*)this->cells[y][x];
+
+		return emptyCell;
+	}
+
+	return nullptr;
+}
 
 
 bool Board::CheckLegal(int xpos, int ypos)
@@ -121,6 +140,9 @@ bool Board::CheckEndCondition()
 	if (this->IsDiagMade() || this->IsBoardFull()) {
 		return true;
 	}*/
+	if (this->CheckIfSomeoneWon() != 0) {
+		return true;
+	}
 
 	return false;
 }
@@ -194,9 +216,23 @@ void Board::RemoveChecker(Checker* checker) {
 void Board::CheckIfJumpExists() {
 	this->jumpExist = false;
 	this->continuousJump = false;
+	for (int i = 0; i < this->checkers.size(); i++) {
+		Checker* checker = this->checkers[i];
+		checker->allowedToMove = false;
+		if (checker->player == this->playerTurn && checker->CanJumpAny()) {
+			this->jumpExist = true;
+			checker->allowedToMove = true;
+		}
+	}
+
+	if (!this->jumpExist) {
+		for (int i = 0; i < this->checkers.size(); i++) {
+			this->checkers[i]->allowedToMove = true;
+		}
+	}
 }
 
-bool Board::CheckIfCheckerSelected(int x, int y) {
+bool Board::CheckIfCheckerOnPosition(int x, int y) {
 	if (this->CheckIfPositionOnBoard(x, y)) {
 		Tile* possibleChecker = this->cells[y][x];
 
@@ -208,7 +244,7 @@ bool Board::CheckIfCheckerSelected(int x, int y) {
 	return false;
 }
 
-bool Board::CheckIfEmptyCellSelected(int x, int y) {
+bool Board::CheckIfEmptyCellOnPosition(int x, int y) {
 	if (this->CheckIfPositionOnBoard(x, y)) {
 		Tile* possibleEmptyCell = this->cells[y][x];
 
@@ -226,16 +262,33 @@ bool Board::CheckIfPositionIsCorrect(std::string position) {
 		return false;
 	}
 
-	int firstCoordinate = position[0] - 'A';
-	int secondCoordinate = position[1] - '1';
+	std::pair<int, int> coords = this->ParsePosition(position);
 
 
-	std::cout << firstCoordinate << " " << secondCoordinate << std::endl;
+	std::cout << coords.first << " " << coords.second << std::endl;
 
-	if (!this->CheckIfPositionOnBoard(firstCoordinate, secondCoordinate)) {
+	if (!this->CheckIfPositionOnBoard(coords.first, coords.second)) {
 		std::cout << "Координата была введена неверно!" << std::endl;
 		return false;
 	}
 
 	return true;
+}
+
+std::pair<int, int> Board::ParsePosition(std::string position) {
+	std::pair<int, int> coords;
+	coords.first = position[0] - 'A';
+	coords.second = position[1] - '1';
+
+	return coords;
+}
+
+void Board::ChangePlayerTurn() {
+	if (this->playerTurn == 1) {
+		this->playerTurn == 2;
+	}
+	else {
+		this->playerTurn = 1;
+	}
+	this->CheckIfJumpExists();
 }

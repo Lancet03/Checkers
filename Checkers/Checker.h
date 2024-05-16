@@ -5,8 +5,8 @@
 class Checker :
     public Tile
 {
-    bool allowedToMove = true;
 public:
+    bool allowedToMove = true;
     bool selected = false;
     bool king = false;
     int player;
