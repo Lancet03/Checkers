@@ -60,12 +60,6 @@ Checker* Checker::CanOpponentJump(int x, int y) {
 		if (y > this->position.second) return nullptr;
 	}
 
-	//int boardYSize = this->board->cells.size();
-	//int boardXSize = this->board->cells[0].size();
-	//if (y > (boardYSize - 1) || x > (boardYSize - 1) || y < 0 || y < 0) {
-	//	return false;
-	//}
-
 	if (!this->board->CheckIfPositionOnBoard(x, y)) return nullptr;
 
 	int tileToCheckX = this->position.first + dx / 2;

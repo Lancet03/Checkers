@@ -28,9 +28,6 @@ bool Manager::Init() {
 	this->p2->SetBoard(this->board);
 	this->currentPlayer = this->p1;
 
-
-	std::cout << this->currentPlayer->GetName() << " " << this->p1->GetName() << " " << this->p2->GetName() << std::endl;
-
 	return true;
 }
 

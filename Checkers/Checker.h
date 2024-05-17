@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Tile.h"
 #include "BoardTile.h"
 
@@ -17,5 +18,7 @@ public:
     Checker* CanOpponentJump(int x, int y);
     bool OpponentJump(int x, int y);
     void Remove();
+
+    std::string GetTextPosition();
 };
 

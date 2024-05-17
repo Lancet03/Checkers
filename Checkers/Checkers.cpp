@@ -8,6 +8,7 @@
 int main()
 {
     setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
     Manager manager;
     if (!manager.Init())
     {
@@ -22,4 +23,13 @@ int main()
     _getch();
 
     return 0;
+}
+
+std::string Checker::GetTextPosition() {
+    char xPos = 'A' + this->position.first;
+    char yPos = '1' + this->position.second;
+
+    std::string val = std::string(1, xPos) + yPos;
+
+    return val;
 }

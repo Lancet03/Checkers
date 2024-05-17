@@ -33,7 +33,7 @@ bool Player::MakeMove()
 	}
 	else {
 		std::cout << "»грок " << this->name << ", ваш ход..." << std::endl;
-		std::cout << "¬ыберите шашку: (координаты в виде A1)";
+		std::cout << "¬ыберите шашку: (координаты в виде A1): ";
 		std::cin >> position;
 	}
 
@@ -64,7 +64,7 @@ bool Player::MakeMove()
 		return false;
 	}
 
-	std::cout << "¬ыберите место, куда должна пойти шашка (координаты в виде A1): ";
+	std::cout << "¬ыберите место, куда должна пойти шашка " << selectedChecker->GetTextPosition() <<  " (координаты в виде A1): ";
 	std::cin >> position;
 
 

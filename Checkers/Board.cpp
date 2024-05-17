@@ -129,24 +129,12 @@ EmptyCell* Board::GetEmptyCell(int x, int y) {
 
 bool Board::CheckLegal(int xpos, int ypos)
 {
-	/*if ((xpos < 0) || (ypos < 0) || (xpos > this->boardSize - 1) || (ypos > this->boardSize - 1))
-	{
-		return false;
-	}*/
 	return this->CheckIfPositionOnBoard(xpos, ypos);
 }
 
 
 bool Board::CheckEndCondition()
 {
-	/*for (unsigned int i = 0; i < this->boardSize; i++) {
-		if (this->IsRowMade(i) || this->IsColumnMade(i)) {
-			return true;
-		}
-	}
-	if (this->IsDiagMade() || this->IsBoardFull()) {
-		return true;
-	}*/
 	if (this->CheckIfSomeoneWon() != 0) {
 		return true;
 	}
@@ -271,9 +259,6 @@ bool Board::CheckIfPositionIsCorrect(std::string position) {
 	}
 
 	std::pair<int, int> coords = this->ParsePosition(position);
-
-
-	std::cout << coords.first << " " << coords.second << std::endl;
 
 	if (!this->CheckIfPositionOnBoard(coords.first, coords.second)) {
 		std::cout << "Координата была введена неверно!" << std::endl;
