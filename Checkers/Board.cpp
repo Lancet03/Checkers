@@ -106,13 +106,8 @@ void Board::PrintCell(int row, int col) {
 	}
 }
 
-void Board::SetSell(unsigned int xpos, unsigned int ypos, BoardTile ct)
-{
-	// cells[ypos][xpos] = ct;
-}
-
 Checker* Board::GetChecker(int x, int y) {
-	if (this->CheckIfPositionOnBoard(x, y)) {
+	if (this->CheckIfPositionOnBoard(x, y) && this->CheckIfCheckerOnPosition(x, y)) {
 		Checker* checker = (Checker*)this->cells[y][x];
 
 		return checker;
@@ -304,4 +299,32 @@ void Board::ChangePlayerTurn() {
 		this->playerTurn = 1;
 	}
 	this->CheckIfJumpExists();
+}
+
+bool Board::CheckIfPlayerHasSelectedCheckers() {
+	for (int i = 0; i < this->checkers.size(); i++) {
+		Checker* checker = this->checkers[i];
+		if (checker->player == this->playerTurn && checker->selected) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+Checker* Board::GetSelectedChecker() {
+	for (int i = 0; i < this->checkers.size(); i++) {
+		Checker* checker = this->checkers[i];
+		if (checker->player == this->playerTurn && checker->selected) {
+			return checker;
+		}
+	}
+
+	return nullptr;
+}
+
+void Board::DeselectAllCheckers() {
+	for (int i = 0; i < this->checkers.size(); i++) {
+		Checker* checker = this->checkers[i];
+		checker->selected = false;
+	}
 }

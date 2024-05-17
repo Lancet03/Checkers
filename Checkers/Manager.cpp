@@ -37,7 +37,7 @@ void Manager::ShowBoard() {
 
 void Manager::MakeMove() {
 	this->ShowBoard();
-	while (!currentPlayer->MakeMove()) {
+	while (!this->currentPlayer->MakeMove()) {
 		std::cout << "Недопустимый ход, попробуйте ещё раз" << std::endl;
 		this->ShowBoard();
 	}
@@ -56,7 +56,9 @@ void Manager::MakeMove() {
 		return;
 	}
 
-	this->currentPlayer = (currentPlayer == this->p1) ? this->p2 : this->p1;
+	if (this->currentPlayer->cellType != this->board->playerTurn) {
+		this->currentPlayer = (currentPlayer == this->p1) ? this->p2 : this->p1;
+	}
 }
 
 bool Manager::IsGameFinished() {

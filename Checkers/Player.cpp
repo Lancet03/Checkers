@@ -22,15 +22,22 @@ void Player::SetBoard(Board* board)
 
 bool Player::MakeMove()
 {
-	unsigned int row = 0, col = 0;
 	std::string position;
-	std::cout << "Игрок " << this->name << ", ваш ход..." << std::endl;
-	std::cout << "Выберите шашку: (координаты в виде A1)";
-	std::cin >> position;
+
 
 	Checker* selectedChecker = nullptr;
+	bool hasSelectedChecker = this->board->CheckIfPlayerHasSelectedCheckers();
 
-	if (this->board->CheckIfPositionIsCorrect(position)) {
+	if (hasSelectedChecker) {
+		selectedChecker = this->board->GetSelectedChecker();
+	}
+	else {
+		std::cout << "Игрок " << this->name << ", ваш ход..." << std::endl;
+		std::cout << "Выберите шашку: (координаты в виде A1)";
+		std::cin >> position;
+	}
+
+	if (!hasSelectedChecker && this->board->CheckIfPositionIsCorrect(position)) {
 		std::pair<int, int> coords = this->board->ParsePosition(position);
 		selectedChecker = this->board->GetChecker(coords.first, coords.second);
 	}
@@ -45,7 +52,8 @@ bool Player::MakeMove()
 		return false;
 	}
 
-	if (!this->board->continuousJump && selectedChecker->allowedToMove) {
+	if ((!this->board->continuousJump || hasSelectedChecker) && selectedChecker->allowedToMove) {
+		this->board->DeselectAllCheckers();
 		selectedChecker->selected = true;
 	}
 	else {

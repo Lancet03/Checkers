@@ -18,7 +18,7 @@ void Printer::PrintBlackChecker() {
 }
 
 void Printer::PrintBlackKingChecker() {
-	this->PrintCell("()", CellType_BlackChecker);
+	this->PrintCell("[]", CellType_BlackChecker);
 }
 
 void Printer::PrintWhiteEmptyCell() {

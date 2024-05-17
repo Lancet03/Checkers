@@ -35,10 +35,11 @@ private:
 
 	bool isVictory;
 	Score score;
-	int playerTurn = 1;
+	
 public:
 	bool jumpExist = false;
 	bool continuousJump = false;
+	int playerTurn = 1;
 
 	Board();
 	virtual ~Board();
@@ -48,7 +49,6 @@ public:
 	std::vector <Checker*> checkers;
 	
 	void Show();
-	void SetSell(unsigned int xpos, unsigned int ypos, BoardTile ct);
 	bool CheckLegal(int xpos, int ypos);
 	bool CheckEndCondition();
 	bool IsVictory();
@@ -59,9 +59,9 @@ public:
 	void ChangePlayerTurn();
 	int CheckIfSomeoneWon();
 	void Clear();
+
 	void CheckIfJumpExists();
 	bool CheckIfPositionOnBoard(int x, int y);
-
 	bool CheckIfPositionIsCorrect(std::string position);
 	bool CheckIfCheckerOnPosition(int x, int y);
 	bool CheckIfEmptyCellOnPosition(int x, int y);
@@ -71,5 +71,9 @@ public:
 	void RemoveChecker(Checker* checker);
 
 	std::pair<int, int> ParsePosition(std::string position);
+
+	Checker* GetSelectedChecker();
+	bool CheckIfPlayerHasSelectedCheckers();
+	void DeselectAllCheckers();
 };
 
