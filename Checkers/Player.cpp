@@ -40,7 +40,7 @@ bool Player::MakeMove()
 		return false;
 	}
 
-	if (selectedChecker->player == this->cellType) {
+	if (selectedChecker->player != this->cellType) {
 		std::cout << "Вы выбрали шашку другого игрока!" << std::endl;
 		return false;
 	}
@@ -53,6 +53,7 @@ bool Player::MakeMove()
 		std::string continious = "Существует продолжительная атака, пожалуйста, прыгайте той же шашкой";
 		std::string message = !this->board->continuousJump ? exists : continious;
 		std::cout << message << std::endl;
+		return false;
 	}
 
 	std::cout << "Выберите место, куда должна пойти шашка (координаты в виде A1): ";
@@ -82,25 +83,20 @@ bool Player::MakeMove()
 				else {
 					this->board->ChangePlayerTurn();
 				}
+				return true;
 			}
 		}
 		else if (inRange == MoveTypes::RegularMove && !this->board->jumpExist) {
 			if (!selectedChecker->CanJumpAny()) {
 				selectedChecker->Move(selectedCell->position.first, selectedCell->position.second);
 				this->board->ChangePlayerTurn();
+				return true;
 			}
 			else {
-				std::cout << "Вы должны атаковать только если это возможно!" << std::endl;
+				std::cout << "Вы должны атаковать!" << std::endl;
 			}
 		}
 	}
-	
-	//if (this->board->CheckIfCheckerOnPosition(col, row))
-	//{
-
-	//	this->board->SetSell(col, row, this->cellType);
-	//	return true;
-	//}
 
 	return false;
 }

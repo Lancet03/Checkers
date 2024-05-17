@@ -25,7 +25,7 @@ bool Checker::Move(int x, int y) {
 		if (y > this->position.second) return false;
 	}
 
-	Tile* emptyCell = this->board->cells[x][y];
+	Tile* emptyCell = this->board->cells[y][x];
 	emptyCell->SetPostion(this->position.first, this->position.second);
 	int xCheckerPos = this->position.first;
 	int yCheckerPos = this->position.second;
@@ -57,7 +57,7 @@ Checker* Checker::CanOpponentJump(int x, int y) {
 		if (y < position.second) return nullptr;
 	}
 	else if (this->player == 2 && this->king == false) {
-		if (y < this->position.second) return nullptr;
+		if (y > this->position.second) return nullptr;
 	}
 
 	//int boardYSize = this->board->cells.size();
@@ -72,7 +72,7 @@ Checker* Checker::CanOpponentJump(int x, int y) {
 	int tileToCheckY = this->position.second + dy / 2;
 	if (!this->board->CheckIfPositionOnBoard(tileToCheckX, tileToCheckY)) return nullptr;
 	
-	if (this->board->IsValidPlaceToMove(tileToCheckY, tileToCheckX) && this->board->IsValidPlaceToMove(x, y)) {
+	if (!this->board->IsValidPlaceToMove(tileToCheckY, tileToCheckX) && this->board->IsValidPlaceToMove(y, x)) {
 		std::vector<Checker*> checkers = this->board->checkers;
 		for (int checkerId = 0; checkerId < checkers.size(); checkerId++) {
 			Checker* checker = checkers[checkerId];
