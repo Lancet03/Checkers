@@ -72,10 +72,19 @@ bool Player::MakeMove()
 	if (this->board->CheckIfPositionIsCorrect(position)) {
 		std::pair<int, int> coords = this->board->ParsePosition(position);
 		selectedCell = this->board->GetEmptyCell(coords.first, coords.second);
+
+		if (!this->board->continuousJump) {
+			this->board->DeselectAllCheckers();
+		}
 	}
 
 	if (selectedCell == nullptr) {
 		std::cout << "Клетка была выбрана неправильно!" << std::endl;
+
+		if (!this->board->continuousJump) {
+			this->board->DeselectAllCheckers();
+		}
+
 		return false;
 	}
 

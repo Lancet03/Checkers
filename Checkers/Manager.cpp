@@ -13,20 +13,23 @@ Manager::~Manager() {
 
 bool Manager::Init() {
 	this->board = new Board();
-	std::string playerName = "PlWhite";
+	std::string playerName;
 	this->p1 = new Player();
 	this->p2 = new Player();
-	//std::cin.ignore();
-	std::cout << "Введите имя игрока, играющего Х: ";
-	//getline(std::cin, playerName);
+
+	std::cout << "Введите имя игрока, играющего белыми шашками: ";
+	getline(std::cin, playerName);
 	this->p1->SetupPlayer(playerName, BoardTile::White);
-	std::cout << "Введите имя игрока, играющего за O: ";
-	//getline(std::cin, playerName);
+	std::cout << "Введите имя игрока, играющего черными шашками: ";
+	getline(std::cin, playerName);
 	playerName = "PlBlack";
 	this->p2->SetupPlayer(playerName, BoardTile::Black);
 	this->p1->SetBoard(this->board);
 	this->p2->SetBoard(this->board);
 	this->currentPlayer = this->p1;
+
+
+	std::cout << this->currentPlayer->GetName() << " " << this->p1->GetName() << " " << this->p2->GetName() << std::endl;
 
 	return true;
 }
@@ -45,9 +48,6 @@ void Manager::MakeMove() {
 	if (this->board->CheckEndCondition()) {
 		if (this->board->IsVictory()) {
 			std::cout << "Player " << this->currentPlayer->GetName() << " won!" << std::endl;
-		}
-		else {
-			std::cout << "Ничья!" << std::endl;
 		}
 
 		this->isGameFinished = true;

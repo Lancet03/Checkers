@@ -30,12 +30,17 @@ void Printer::PrintBlackEmptyCell() {
 }
 
 void Printer::PrintTilesInfo() {
-	this->PrintBlackEmptyCell();
-	this->PrintWhiteEmptyCell();
 	this->PrintWhiteChecker();
-	this->PrintWhiteEmptyCell();
+	std::cout << " - Белая шашка" << std::endl;
+
 	this->PrintBlackChecker();
-	this->PrintWhiteEmptyCell();
+	std::cout << " - Черная шашка" << std::endl;
+	
+	this->PrintWhiteKingChecker();
+	std::cout << " - Белая дамка" << std::endl;
+
+	this->PrintBlackKingChecker();
+	std::cout << " - Черная дамка" << std::endl;
 }
 
 void Printer::PrintCell(const char* cellText, CellType cellType) {

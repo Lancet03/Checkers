@@ -9,7 +9,6 @@ MoveTypes Tile::InRange(Checker* checker) {
 	std::vector<Checker*> checkers = this->board->checkers;
 
 	for (int i = 0; i < checkers.size(); i++) {
-		//Checker* checker = checkers[i];
 		if (checkers[i]->position.first == this->position.first && checkers[i]->position.second == this->position.second) {
 			return MoveTypes::Wrong;
 		}
