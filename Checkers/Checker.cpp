@@ -94,3 +94,12 @@ bool Checker::OpponentJump(int x, int y) {
 void Checker::Remove() {
 	this->board->RemoveChecker(this);
 }
+
+std::string Checker::GetTextPosition() {
+	char xPos = 'A' + this->position.first;
+	char yPos = '1' + this->position.second;
+
+	std::string val = std::string(1, xPos) + yPos;
+
+	return val;
+}
