@@ -31,6 +31,8 @@ Board::Board()
 
 		this->cells.push_back(tilesInLine);
 	}
+
+	this->CheckIfJumpExists();
 }
 
 Board::~Board()
@@ -312,4 +314,23 @@ void Board::DeselectAllCheckers() {
 		Checker* checker = this->checkers[i];
 		checker->selected = false;
 	}
+}
+
+std::vector<Checker*> Board::GetCheckersThatCanMove() {
+	std::vector<Checker*> checkersThatCanMove;
+
+	for (int i = 0; i < this->checkers.size(); i++) {
+		Checker* checker = this->checkers[i];
+
+		if (checker->player != this->playerTurn) {
+			continue;
+		}
+
+		std::vector<EmptyCell*> availableMoves = checker->GetTilesAvailable();
+		if (availableMoves.size() > 0 && checker->allowedToMove) {
+			checkersThatCanMove.push_back(checker);
+		}
+	}
+
+	return checkersThatCanMove;
 }

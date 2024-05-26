@@ -1,11 +1,16 @@
 #pragma once
 #include <string>
+#include <vector>
 #include "Tile.h"
 #include "BoardTile.h"
+
+class EmptyCell;
 
 class Checker :
     public Tile
 {
+private:
+    bool CheckIfTileAvailableToMove(int x, int y);
 public:
     bool allowedToMove = true;
     bool selected = false;
@@ -19,6 +24,6 @@ public:
     bool OpponentJump(int x, int y);
     void Remove();
 
-    std::string GetTextPosition();
+    std::vector<EmptyCell*> GetTilesAvailable();
 };
 

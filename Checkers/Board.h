@@ -75,5 +75,7 @@ public:
 	Checker* GetSelectedChecker();
 	bool CheckIfPlayerHasSelectedCheckers();
 	void DeselectAllCheckers();
+
+	std::vector<Checker*> GetCheckersThatCanMove();
 };
 

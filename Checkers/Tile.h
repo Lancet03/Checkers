@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <string>
 #include "MoveTypes.h"
 
 class Board;
@@ -15,5 +16,6 @@ public:
 	std::pair<int, int> position;
 	MoveTypes InRange(Checker* checker);
 	void SetPostion(int x, int y);
+	std::string GetTextPosition();
 };
 

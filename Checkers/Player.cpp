@@ -25,8 +25,6 @@ bool Player::MakeMove()
 	Checker* selectedChecker = this->SelectChecker();
 	if (selectedChecker == nullptr) return false;
 
-	std::cout << "¬ыберите место, куда должна пойти шашка " << selectedChecker->GetTextPosition() <<  " (координаты в виде A1): ";
-
 	return this->SelectWhereCheckerWillGo(selectedChecker);
 }
 
@@ -37,6 +35,16 @@ std::string Player::GetName()
 
 Checker* Player::SelectChecker() {
 	std::string position;
+
+	std::vector<Checker*> checkersThatCanMove = this->board->GetCheckersThatCanMove();
+
+	std::cout << "Ўашки, которые могут идти: ";
+	for (int i = 0; i < checkersThatCanMove.size(); i++) {
+		Checker* checkerThatCanMove = checkersThatCanMove[i];
+
+		std::cout << checkerThatCanMove->GetTextPosition() << ((i == checkersThatCanMove.size() - 1) ? "." : ", ");
+	}
+	std::cout << std::endl;
 
 	Checker* selectedChecker = nullptr;
 	bool hasSelectedChecker = this->board->CheckIfPlayerHasSelectedCheckers();
@@ -82,6 +90,18 @@ Checker* Player::SelectChecker() {
 
 bool Player::SelectWhereCheckerWillGo(Checker* selectedChecker) {
 	std::string position;
+
+	std::vector<EmptyCell*> availableTurns = selectedChecker->GetTilesAvailable();
+	std::cout << "ƒоступные ходы: ";
+	for (int i = 0; i < availableTurns.size(); i++) {
+		EmptyCell* availableTurn = availableTurns[i];
+
+		std::cout << availableTurn->GetTextPosition() << ((i == availableTurns.size() - 1) ? "." : ", ");
+	}
+	std::cout << std::endl;
+
+	std::cout << "¬ыберите место, куда должна пойти шашка " << selectedChecker->GetTextPosition() << " (координаты в виде A1): ";
+
 	std::cin >> position;
 	EmptyCell* selectedCell = nullptr;
 	if (this->board->CheckIfPositionIsCorrect(position)) {
