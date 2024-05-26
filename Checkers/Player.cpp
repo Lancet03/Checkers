@@ -22,8 +22,21 @@ void Player::SetBoard(Board* board)
 
 bool Player::MakeMove()
 {
-	std::string position;
+	Checker* selectedChecker = this->SelectChecker();
+	if (selectedChecker == nullptr) return false;
 
+	std::cout << "¬ыберите место, куда должна пойти шашка " << selectedChecker->GetTextPosition() <<  " (координаты в виде A1): ";
+
+	return this->SelectWhereCheckerWillGo(selectedChecker);
+}
+
+std::string Player::GetName()
+{
+	return this->name;
+}
+
+Checker* Player::SelectChecker() {
+	std::string position;
 
 	Checker* selectedChecker = nullptr;
 	bool hasSelectedChecker = this->board->CheckIfPlayerHasSelectedCheckers();
@@ -44,12 +57,12 @@ bool Player::MakeMove()
 
 	if (selectedChecker == nullptr) {
 		std::cout << "Ўашка была выбрана неправильно!" << std::endl;
-		return false;
+		return nullptr;
 	}
 
 	if (selectedChecker->player != this->cellType) {
 		std::cout << "¬ы выбрали шашку другого игрока!" << std::endl;
-		return false;
+		return nullptr;
 	}
 
 	if ((!this->board->continuousJump || hasSelectedChecker) && selectedChecker->allowedToMove) {
@@ -61,13 +74,15 @@ bool Player::MakeMove()
 		std::string continious = "—уществует продолжительна€ атака, пожалуйста, прыгайте той же шашкой";
 		std::string message = !this->board->continuousJump ? exists : continious;
 		std::cout << message << std::endl;
-		return false;
+		return nullptr;
 	}
 
-	std::cout << "¬ыберите место, куда должна пойти шашка " << selectedChecker->GetTextPosition() <<  " (координаты в виде A1): ";
+	return selectedChecker;
+}
+
+bool Player::SelectWhereCheckerWillGo(Checker* selectedChecker) {
+	std::string position;
 	std::cin >> position;
-
-
 	EmptyCell* selectedCell = nullptr;
 	if (this->board->CheckIfPositionIsCorrect(position)) {
 		std::pair<int, int> coords = this->board->ParsePosition(position);
@@ -114,11 +129,4 @@ bool Player::MakeMove()
 			}
 		}
 	}
-
-	return false;
-}
-
-std::string Player::GetName()
-{
-	return this->name;
 }
