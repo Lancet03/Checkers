@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Board.h"
 #include "CellType.h"
 #include "BoardTile.h"
 #include "Printer.h"
@@ -12,44 +12,37 @@
 
 class Tile;
 
-struct Score {
-	int player1 = 0;
-	int player2 = 0;
-};
+//struct Score {
+//	int player1 = 0;
+//	int player2 = 0;
+//};
 
-class Board
+class BoardMonteCarloEvaluator
 {
 private:
-	std::vector <std::vector<BoardTile>> tiles{
-		{Empty, White, Empty, White, Empty, White, Empty, White},
-		{White, Empty, White, Empty, White, Empty, White, Empty},
-		{Empty, White, Empty, White, Empty, White, Empty, White},
-		{Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty},
-		{Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty},
-		{Black, Empty, Black, Empty, Black, Empty, Black, Empty},
-		{Empty, Black, Empty, Black, Empty, Black, Empty, Black},
-		{Black, Empty, Black, Empty, Black, Empty, Black, Empty}
-	};
-
-	Printer printer;
-
+	Board* board;
 	bool isVictory;
-	Score score;
-	
+	//Score score;
+	int numGames;
+	int numVictories;
+	int numLosses;
+	int numDraws;
+
+	std::pair<int, int> checkerPos, tilePos;
+	BoardTile startCheckerType;
 public:
 	bool jumpExist = false;
 	bool continuousJump = false;
 	int playerTurn = 1;
 
-	Board();
-	Board(Board* board);
-	virtual ~Board();
+	BoardMonteCarloEvaluator(Board* board, int numIterations, BoardTile startCheckerType, std::pair<int, int> checkerPos, std::pair<int, int> tilePos);
+	virtual ~BoardMonteCarloEvaluator();
 
 	std::vector <std::vector<Tile*>> cells;
 	std::vector <EmptyCell*> emptyCells;
 	std::vector <Checker*> checkers;
-	
-	void Show();
+
+	/*void Show();
 	bool CheckLegal(int xpos, int ypos);
 	bool CheckEndCondition();
 	bool IsVictory();
@@ -77,6 +70,13 @@ public:
 	bool CheckIfPlayerHasSelectedCheckers();
 	void DeselectAllCheckers();
 
-	std::vector<Checker*> GetCheckersThatCanMove();
+	std::vector<Checker*> GetCheckersThatCanMove();*/
+	void EvaluateBoard();
+	void Evaluate();
+	int GetVictories() { return numVictories; };
+	int GetLosses() { return numLosses; };
+	int GetDraws() { return numDraws; };
+	std::pair<int, int> GetCheckerPos() { return checkerPos; };
+	std::pair<int, int> GetTilePos() { return tilePos; };
 };
 

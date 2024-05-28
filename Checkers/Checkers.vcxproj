@@ -128,26 +128,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardMonteCarloEvaluator.cpp" />
     <ClCompile Include="Checker.cpp" />
     <ClCompile Include="Checkers.cpp" />
+    <ClCompile Include="ComputerPlayer.cpp" />
     <ClCompile Include="distance.cpp" />
     <ClCompile Include="EmptyCell.cpp" />
+    <ClCompile Include="HumanPlayer.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Printer.cpp" />
+    <ClCompile Include="RandomPlayer.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardMonteCarloEvaluator.h" />
     <ClInclude Include="CellType.h" />
     <ClInclude Include="Checker.h" />
+    <ClInclude Include="ComputerPlayer.h" />
     <ClInclude Include="distance.h" />
     <ClInclude Include="EmptyCell.h" />
+    <ClInclude Include="HumanPlayer.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="MoveTypes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="BoardTile.h" />
+    <ClInclude Include="RandomPlayer.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

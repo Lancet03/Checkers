@@ -6,17 +6,16 @@
 
 class Player
 {
+protected:
 	Board* board;
 	std::string name;
-	Checker* SelectChecker();
-	bool SelectWhereCheckerWillGo(Checker* selectedChecker);
 public:
 	BoardTile cellType;
 	Player();
 	virtual ~Player();
 	void SetupPlayer(std::string name, BoardTile cellType);
 	void SetBoard(Board* board);
-	bool MakeMove();
+	virtual bool MakeMove() = 0;
 	std::string GetName();
 };
 

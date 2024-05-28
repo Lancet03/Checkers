@@ -35,6 +35,33 @@ Board::Board()
 	this->CheckIfJumpExists();
 }
 
+Board::Board(Board* board) {
+	int size = board->cells.size();
+
+	for (int row = 0; row < board->cells.size(); row++) {
+		std::vector<Tile*> tilesInLine;
+
+		for (int col = 0; col < board->cells.size(); col++) {
+			Tile* tile = board->cells[row][col];
+
+			if (typeid(*tile) == typeid(EmptyCell)) {
+				EmptyCell* emptyCell = new EmptyCell(row, col, this);
+				tilesInLine.push_back(emptyCell);
+				this->emptyCells.push_back(emptyCell);
+			}
+			else {
+				Checker* checker = new Checker(row, col, ((Checker*)tile)->player, this);
+				tilesInLine.push_back(checker);
+				this->checkers.push_back(checker);
+			}
+		}
+
+		this->cells.push_back(tilesInLine);
+	}
+
+	this->CheckIfJumpExists();
+}
+
 Board::~Board()
 {
 	for (unsigned int i = 0; i < this->cells.size(); i++)

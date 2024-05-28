@@ -1,5 +1,6 @@
 #include "Manager.h"
 #include <iostream>
+#include "HumanPlayer.h"
 
 Manager::Manager() {
 
@@ -14,8 +15,8 @@ Manager::~Manager() {
 bool Manager::Init() {
 	this->board = new Board();
 	std::string playerName;
-	this->p1 = new Player();
-	this->p2 = new Player();
+	this->p1 = new HumanPlayer();
+	this->p2 = new HumanPlayer();
 
 	std::cout << "¬ведите им€ игрока, играющего белыми шашками: ";
 	getline(std::cin, playerName);
