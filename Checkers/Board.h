@@ -31,6 +31,17 @@ private:
 		{Black, Empty, Black, Empty, Black, Empty, Black, Empty}
 	};
 
+	/*std::vector <std::vector<BoardTile>> tiles{
+		{Empty, Empty, Empty, Empty, Empty, Empty, Empty, White},
+		{Black, Empty, White, Empty, White, Empty, White, Empty},
+		{Empty, Black, Empty, Empty, Empty, Empty, Empty, White},
+		{Black, Empty, Empty, Empty, White, Empty, Black, Empty},
+		{Empty, White, Empty, White, Empty, Black, Empty, Black},
+		{Empty, Empty, Empty, Empty, Empty, Empty, Black, Empty},
+		{Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty},
+		{Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty}
+	};*/
+
 	Printer printer;
 
 	bool isVictory;

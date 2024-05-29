@@ -18,9 +18,9 @@ ComputerPlayer::~ComputerPlayer() {
 
 bool ComputerPlayer::MakeMove() {
 	CheckerMove checkerMove = this->CalcMove();
+
 	std::pair<int, int> checkerToMovePos = checkerMove.checkerPos;
 	std::pair<int, int> moveToTilePos = checkerMove.moveToPos;
-
 	Checker* checkerToMove = this->board->GetChecker(checkerToMovePos.first, checkerToMovePos.second);
 	if (checkerToMove == nullptr) {
 		std::cerr << "Computer Player Error:: Should get Checker";
@@ -81,16 +81,8 @@ CheckerMove ComputerPlayer::CalcMove() {
 	int biggestVictories = -1;
 	int biggestDraws = -1;
 	for (int i = 0; i < evaluators.size(); i++) {
-		if (this->cellType == BoardTile::White) {
-			if (evaluators[i]->GetVictories() > biggestVictories) {
-				biggestVictories = evaluators[i]->GetVictories();
-			}
-
-		}
-		else {
-			if (evaluators[i]->GetLosses() > biggestVictories) {
-				biggestVictories = evaluators[i]->GetLosses();
-			}
+		if (evaluators[i]->GetVictories() > biggestVictories) {
+			biggestVictories = evaluators[i]->GetVictories();
 		}
 
 		if (evaluators[i]->GetDraws() > biggestDraws) {
@@ -124,9 +116,13 @@ CheckerMove ComputerPlayer::CalcMove() {
 		checkerToMovePos = biggestWinEvaluators[0]->GetFirstMoveCheckerPos();
 		moveToTilePos = biggestWinEvaluators[0]->GetFirstMoveTilePos();
 	}
-	else {
+	else if (biggestDrawsEvaluators.size() > 0) {
 		checkerToMovePos = biggestDrawsEvaluators[0]->GetFirstMoveCheckerPos();
 		moveToTilePos = biggestDrawsEvaluators[0]->GetFirstMoveTilePos();
+	}
+	else {
+		checkerToMovePos = evaluators[0]->GetFirstMoveCheckerPos();
+		moveToTilePos = evaluators[0]->GetFirstMoveCheckerPos();
 	}
 
 	CheckerMove checkerMove;

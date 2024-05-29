@@ -76,7 +76,9 @@ Board::~Board()
 		for (int j = 0; j < this->cells[i].size(); j++) {
 			delete cells[i][j];
 		}
+		cells[i].clear();
 	}
+	cells.clear();
 }
 
 void Board::Show()
@@ -171,6 +173,7 @@ bool Board::CheckLegal(int xpos, int ypos)
 bool Board::CheckEndCondition()
 {
 	if (this->CheckIfSomeoneWon() != 0) {
+		this->isVictory = true;
 		return true;
 	}
 
@@ -182,11 +185,17 @@ bool Board::IsVictory() {
 }
 
 int Board::CheckIfSomeoneWon() {
+	
 	if (this->score.player1 == 12) {
 		return 1;
 	}
 	else if (this->score.player2 == 12) {
 		return 2;
+	}
+
+	std::vector<Checker*> checkersThatCanMove = this->GetCheckersThatCanMove();
+	if (checkersThatCanMove.size() == 0) {
+		return (this->playerTurn == 1) ? 2 : 1;
 	}
 
 	return 0;
@@ -222,6 +231,7 @@ void Board::RemoveChecker(Checker* checker) {
 	int checkerCol = checker->position.first;
 	int checkerRow = checker->position.second;
 	EmptyCell* emptyCell = new EmptyCell(checkerRow, checkerCol, this);
+	delete this->cells[checkerRow][checkerCol];
 	this->cells[checkerRow][checkerCol] = emptyCell;
 
 	for (int i = 0; i < this->checkers.size(); i++) {
@@ -236,11 +246,6 @@ void Board::RemoveChecker(Checker* checker) {
 		}
 	}
 	this->emptyCells.push_back(emptyCell);
-
-	int playerWon = this->CheckIfSomeoneWon();
-	if (playerWon) {
-		std::cout << "Player " << playerWon << " won!!!" << std::endl;
-	}
 }
 
 

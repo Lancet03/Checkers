@@ -81,6 +81,10 @@ void BoardMonteCarloEvaluator::EvaluateBoard() {
 	if (movesCount == maxMovesCount - 1) {
 		numDraws++;
 	}
+
+	delete p1;
+	delete p2;
+	delete b;
 }
 
 void BoardMonteCarloEvaluator::Evaluate() {

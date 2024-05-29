@@ -13,7 +13,7 @@ RandomPlayer::~RandomPlayer() {
 }
 
 bool RandomPlayer::MakeMove() {
-	srand(time(NULL));
+	//srand(time(NULL));
 
 	unsigned int checkerIndex;
 	unsigned int movePosIndex;
@@ -32,11 +32,42 @@ bool RandomPlayer::MakeMove() {
 	movePosIndex = (unsigned int)(rand() % tilesAvailableToMove.size());
 	EmptyCell* moveTile = tilesAvailableToMove[movePosIndex];
 
-	return selectedChecker->Move(moveTile->position.first, moveTile->position.second);
+	MoveTypes inRange = moveTile->InRange(selectedChecker);
+	if (inRange != MoveTypes::Wrong) {
+		if (inRange == MoveTypes::Jump) {
+			if (selectedChecker->OpponentJump(moveTile->position.first, moveTile->position.second)) {
+				selectedChecker->Move(moveTile->position.first, moveTile->position.second);
+				if (selectedChecker->CanJumpAny()) {
+					selectedChecker->selected = true;
+					this->board->continuousJump = true;
+				}
+				else {
+					this->board->ChangePlayerTurn();
+				}
+				return true;
+			}
+		}
+		else if (inRange == MoveTypes::RegularMove && !this->board->jumpExist) {
+			if (!selectedChecker->CanJumpAny()) {
+				selectedChecker->Move(moveTile->position.first, moveTile->position.second);
+				this->board->ChangePlayerTurn();
+				return true;
+			}
+			else {
+				std::cout << "Random Player Error:: Вы должны атаковать!" << std::endl;
+				return false;
+			}
+		}
+	}
+
+	//return selectedChecker->Move(moveTile->position.first, moveTile->position.second);
 }
 
 bool RandomPlayer::MakeFirstMove(std::pair<int, int> checkerPos, std::pair<int, int> moveToTilePos) {
 	Checker* selectedChecker = this->SelectChecker(checkerPos);
+	if (selectedChecker == nullptr) {
+		return false;
+	}
 	return this->SelectWhereCheckerWillGo(selectedChecker, moveToTilePos);
 }
 

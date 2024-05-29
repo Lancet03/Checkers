@@ -12,17 +12,11 @@
 
 class Tile;
 
-//struct Score {
-//	int player1 = 0;
-//	int player2 = 0;
-//};
-
 class BoardMonteCarloEvaluator
 {
 private:
 	Board* board;
 	bool isVictory;
-	//Score score;
 	int numGames;
 	int numVictories;
 	int numLosses;

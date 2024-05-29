@@ -71,7 +71,7 @@ void Manager::MakeMove() {
 
 	if (this->board->CheckEndCondition()) {
 		if (this->board->IsVictory()) {
-			std::cout << "Player " << this->currentPlayer->GetName() << " won!" << std::endl;
+			std::cout << "Игрок " << this->currentPlayer->GetName() << " победил!" << std::endl;
 		}
 
 		this->isGameFinished = true;
