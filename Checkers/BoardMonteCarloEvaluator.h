@@ -28,7 +28,7 @@ private:
 	int numLosses;
 	int numDraws;
 
-	std::pair<int, int> checkerPos, tilePos;
+	std::pair<int, int> firsMoveCheckerPos, firsMoveTilePos;
 	BoardTile startCheckerType;
 public:
 	bool jumpExist = false;
@@ -76,7 +76,7 @@ public:
 	int GetVictories() { return numVictories; };
 	int GetLosses() { return numLosses; };
 	int GetDraws() { return numDraws; };
-	std::pair<int, int> GetCheckerPos() { return checkerPos; };
-	std::pair<int, int> GetTilePos() { return tilePos; };
+	std::pair<int, int> GetFirstMoveCheckerPos() { return firsMoveCheckerPos; };
+	std::pair<int, int> GetFirstMoveTilePos() { return firsMoveTilePos; };
 };
 

@@ -36,6 +36,13 @@ Board::Board()
 }
 
 Board::Board(Board* board) {
+	Score scoreCp;
+	scoreCp.player1 = board->score.player1;
+	scoreCp.player2 = board->score.player2;
+	this->continuousJump = board->continuousJump;
+	this->jumpExist = board->jumpExist;
+	this->playerTurn = board->playerTurn;
+
 	int size = board->cells.size();
 
 	for (int row = 0; row < board->cells.size(); row++) {
@@ -123,7 +130,6 @@ void Board::PrintCell(int row, int col) {
 			
 			return;
 		}
-
 	}
 	else if (typeid(*tile) == typeid(EmptyCell)) {
 		if ((tile->position.first + tile->position.second) % 2 == 0) {

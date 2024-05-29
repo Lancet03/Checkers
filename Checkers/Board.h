@@ -34,9 +34,8 @@ private:
 	Printer printer;
 
 	bool isVictory;
-	Score score;
-	
 public:
+	Score score;
 	bool jumpExist = false;
 	bool continuousJump = false;
 	int playerTurn = 1;
@@ -78,5 +77,7 @@ public:
 	void DeselectAllCheckers();
 
 	std::vector<Checker*> GetCheckersThatCanMove();
+
+	Score GetScore() { return this->score; };
 };
 

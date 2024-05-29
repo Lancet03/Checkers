@@ -1,6 +1,8 @@
 #include "Manager.h"
 #include <iostream>
 #include "HumanPlayer.h"
+#include "ComputerPlayer.h"
+#include "RandomPlayer.h"
 
 Manager::Manager() {
 
@@ -15,16 +17,43 @@ Manager::~Manager() {
 bool Manager::Init() {
 	this->board = new Board();
 	std::string playerName;
-	this->p1 = new HumanPlayer();
-	this->p2 = new HumanPlayer();
+	int playerType;
+
+	std::cout << "Введите тип игрока #1 (1 - человек, 2 - случайный игрок, любое другое число - Компьютер: ";
+	std::cin >> playerType;
+	if (playerType == 1) {
+		this->p1 = new HumanPlayer();
+	}
+	else if (playerType == 2) {
+		this->p1 = new RandomPlayer();
+	}
+	else {
+		this->p1 = new ComputerPlayer();
+	}
+
+	std::cout << "Введите тип игрока #2 (1 - человек, 2 - случайный игрок, любое другое число - Компьютер: ";
+	std::cin >> playerType;
+	if (playerType == 1) {
+		this->p2 = new HumanPlayer();
+	}
+	else if (playerType == 2) {
+		this->p2 = new RandomPlayer();
+	}
+	else {
+		this->p2 = new ComputerPlayer();
+	}
+
+	/*this->p1 = new HumanPlayer();
+	this->p2 = new HumanPlayer();*/
 
 	std::cout << "Введите имя игрока, играющего белыми шашками: ";
-	getline(std::cin, playerName);
+	std::cin >> playerName;
 	this->p1->SetupPlayer(playerName, BoardTile::White);
+	
 	std::cout << "Введите имя игрока, играющего черными шашками: ";
-	getline(std::cin, playerName);
-	playerName = "PlBlack";
+	std::cin >> playerName;
 	this->p2->SetupPlayer(playerName, BoardTile::Black);
+
 	this->p1->SetBoard(this->board);
 	this->p2->SetBoard(this->board);
 	this->currentPlayer = this->p1;
