@@ -43,9 +43,6 @@ bool Manager::Init() {
 		this->p2 = new ComputerPlayer();
 	}
 
-	/*this->p1 = new HumanPlayer();
-	this->p2 = new HumanPlayer();*/
-
 	std::cout << "¬ведите им€ игрока, играющего белыми шашками: ";
 	std::cin >> playerName;
 	this->p1->SetupPlayer(playerName, BoardTile::White);

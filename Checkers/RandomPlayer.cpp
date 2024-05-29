@@ -13,6 +13,8 @@ RandomPlayer::~RandomPlayer() {
 }
 
 bool RandomPlayer::MakeMove() {
+	srand(time(NULL));
+
 	unsigned int checkerIndex;
 	unsigned int movePosIndex;
 

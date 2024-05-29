@@ -18,7 +18,7 @@ BoardMonteCarloEvaluator::~BoardMonteCarloEvaluator() {
 }
 
 void BoardMonteCarloEvaluator::EvaluateBoard() {
-	int maxMovesCount = 10;
+	int maxMovesCount = 50;
 
 	Board* b = new Board(this->board);
 	RandomPlayer* p1 = new RandomPlayer();
