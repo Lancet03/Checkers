@@ -54,7 +54,7 @@ bool RandomPlayer::MakeMove() {
 				return true;
 			}
 			else {
-				std::cout << "Random Player Error:: Вы должны атаковать!" << std::endl;
+				//std::cout << "Random Player Error:: Вы должны атаковать!" << std::endl;
 				return false;
 			}
 		}
@@ -92,7 +92,7 @@ Checker* RandomPlayer::SelectChecker(std::pair<int, int> checkerPos) {
 	}
 
 	if (selectedChecker->player != this->cellType) {
-		std::cout << "RandomPlayer Error:: Вы выбрали шашку другого игрока!" << std::endl;
+		//std::cout << "RandomPlayer Error:: Вы выбрали шашку другого игрока!" << std::endl;
 		return nullptr;
 	}
 
@@ -101,10 +101,10 @@ Checker* RandomPlayer::SelectChecker(std::pair<int, int> checkerPos) {
 		selectedChecker->selected = true;
 	}
 	else {
-		std::string exists = "RandomPlayer Error:: Существует атака для другой шашки, пожалуйста выберите другую";
+		/*std::string exists = "RandomPlayer Error:: Существует атака для другой шашки, пожалуйста выберите другую";
 		std::string continious = "RandomPlayer Error:: Существует продолжительная атака, пожалуйста, прыгайте той же шашкой";
 		std::string message = !this->board->continuousJump ? exists : continious;
-		std::cout << message << std::endl;
+		std::cout << message << std::endl;*/
 		return nullptr;
 	}
 
@@ -121,7 +121,7 @@ bool RandomPlayer::SelectWhereCheckerWillGo(Checker* selectedChecker, std::pair<
 	}
 
 	if (selectedCell == nullptr) {
-		std::cout << "RandomPlayer Error:: Клетка была выбрана неправильно!" << std::endl;
+		//std::cout << "RandomPlayer Error:: Клетка была выбрана неправильно!" << std::endl;
 
 		if (!this->board->continuousJump) {
 			this->board->DeselectAllCheckers();
@@ -152,7 +152,7 @@ bool RandomPlayer::SelectWhereCheckerWillGo(Checker* selectedChecker, std::pair<
 				return true;
 			}
 			else {
-				std::cout << "RandomPlayer Error:: Вы должны атаковать!" << std::endl;
+				//std::cout << "RandomPlayer Error:: Вы должны атаковать!" << std::endl;
 			}
 		}
 	}

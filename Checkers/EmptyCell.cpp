@@ -7,4 +7,3 @@ EmptyCell::EmptyCell(int row, int col, Board* board) {
 	this->position.second = row;
 	this->board = board;
 }
-

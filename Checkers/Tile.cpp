@@ -43,4 +43,3 @@ std::string Tile::GetTextPosition() {
 
 	return val;
 }
-
